@@ -2,8 +2,9 @@ package com.centime.assignment.tasktwo;
 
 import com.centime.assignment.tasktwo.exception.AssignmentException;
 import com.centime.assignment.tasktwo.pojo.RelationshipTableDTO;
-import com.centime.assignment.tasktwo.pojo.ResponseDTO;
 import com.centime.assignment.tasktwo.service.RelationshipTableService;
+import com.centime.assignment.tasktwo.utils.GraphNode;
+import com.centime.assignment.tasktwo.utils.LogMethodParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
 import static com.centime.assignment.tasktwo.utils.AssignmentUtilities.msg;
@@ -27,28 +29,43 @@ public class TaskTwoAPI {
     private RelationshipTableService relationshipTableService;
 
     @PostMapping
-    public ResponseEntity<List<RelationshipTableDTO>> insert(@RequestBody  List<RelationshipTableDTO> relationshipTableDTOS){
-        try{
+    public ResponseEntity<List<RelationshipTableDTO>> insert(@RequestBody List<RelationshipTableDTO> relationshipTableDTOS) {
+        try {
             List<RelationshipTableDTO> relationshipTableDTOList = relationshipTableService.insert(relationshipTableDTOS);
             return new ResponseEntity<List<RelationshipTableDTO>>(relationshipTableDTOList, HttpStatus.CREATED);
-        }catch (AssignmentException ex){
+        } catch (AssignmentException ex) {
             throw ex;
-        }catch (Exception ex){
-            String message = msg("Error occured while saving the records due to {} ",ex.getMessage());
-            logger.error(message,ex);
-            throw new AssignmentException(message,ex);
+        } catch (Exception ex) {
+            String message = msg("Error occured while saving the records due to {} ", ex.getMessage());
+            logger.error(message, ex);
+            throw new AssignmentException(message, ex);
         }
     }
 
-    public List<ResponseDTO> fetchById(@RequestParam long id){
-        try{
+    @GetMapping
+    @LogMethodParam
+    public GraphNode fetchById(@RequestParam long id) {
+        try {
             return relationshipTableService.fetchById(id);
-        }catch (AssignmentException ex){
+        } catch (AssignmentException ex) {
             throw ex;
-        }catch (Exception ex){
-            String message = msg("Error occured while fetching the records due to {} ",ex.getMessage());
-            logger.error(message,ex);
-            throw new AssignmentException(message,ex);
+        } catch (Exception ex) {
+            String message = msg("Error occured while fetching the records for id {} due to {} ", id, ex.getMessage());
+            logger.error(message, ex);
+            throw new AssignmentException(message, ex);
+        }
+    }
+
+    @GetMapping(value = "/fetchAll")
+    public Collection<GraphNode> fetchAll() {
+        try {
+            return relationshipTableService.fetchAll();
+        } catch (AssignmentException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            String message = msg("Error occured while fetching the records due to {} ", ex.getMessage());
+            logger.error(message, ex);
+            throw new AssignmentException(message, ex);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.centime.assignment.tasktwo.dao;
 
 import com.centime.assignment.tasktwo.pojo.RelationshipTableDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,5 +12,4 @@ import java.util.List;
  */
 @Repository
 public interface RelationshipTableRepository extends JpaRepository<RelationshipTableDTO,Long> {
-    List<RelationshipTableDTO> findByParentId(long id);
 }

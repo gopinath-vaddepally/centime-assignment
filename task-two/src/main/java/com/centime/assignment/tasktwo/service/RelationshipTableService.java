@@ -1,9 +1,9 @@
 package com.centime.assignment.tasktwo.service;
 
 import com.centime.assignment.tasktwo.pojo.RelationshipTableDTO;
-import com.centime.assignment.tasktwo.pojo.ResponseDTO;
-import org.springframework.stereotype.Service;
+import com.centime.assignment.tasktwo.utils.GraphNode;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface RelationshipTableService {
     List<RelationshipTableDTO> insert(List<RelationshipTableDTO> relationshipTableDTOList);
-    List<ResponseDTO> fetchById(long id);
-    List<ResponseDTO> fetchAll();
+    GraphNode fetchById(long id);
+    Collection<GraphNode> fetchAll();
 }

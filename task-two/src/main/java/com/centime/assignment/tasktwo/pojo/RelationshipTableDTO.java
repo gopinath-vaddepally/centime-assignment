@@ -14,12 +14,11 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RelationshipTableDTO {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    private Long parentid;
+    private Long parentId;
 
     private String color;
 
@@ -50,12 +49,12 @@ public class RelationshipTableDTO {
         return this;
     }
 
-    public Long getParentid() {
-        return parentid;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public RelationshipTableDTO setParentid(Long parentid) {
-        this.parentid = parentid;
+    public RelationshipTableDTO setParentId(Long parentId) {
+        this.parentId = parentId;
         return this;
     }
 
@@ -64,7 +63,7 @@ public class RelationshipTableDTO {
         return "RelationshipTable{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", parentid='" + parentid + '\'' +
+                ", parentid='" + parentId + '\'' +
                 ", color='" + color + '\'' +
                 '}';
     }
